@@ -4,6 +4,11 @@ const nextBtn = document.querySelector('#next-btn');
 const startBtn = document.querySelector('#start-btn');
 const displayQuestion = document.querySelector('#question');
 const answerBtns = document.querySelector('#answers');
+let correctAnswers = 0;
+let incorrectAnswers = 0;
+const scoreContainer = document.querySelector('#score-container');
+const mistakesContainer = document.querySelector('#mistakes-container');
+
 const questions = [
   {
     question:
@@ -12,7 +17,7 @@ const questions = [
       { option: 'Die Hard', correct: true },
       { option: 'Home Alone', correct: false },
       { option: 'Devil Wears Prada', correct: false },
-      { option: 'Lord of the Rings', correct: false },
+      { option: 'Lord of the Rings', scorrect: false },
     ],
   },
   {
@@ -67,15 +72,35 @@ const wrongElement = document.querySelector('.correct-wrong');
 function selectedAnswer(e) {
   const selectedAnswer = e.target;
   const correct = selectedAnswer.dataset.correct;
-  showCorrectOrWrong(wrongElement, correct);
+  const incorrect = selectedAnswer.dataset.correct;
+  if (correct) {
+    correctAnswers++;
+  } else if (!correct) {
+    incorrectAnswers++;
+  }
+  showCorrectOrWrong(wrongElement, correct, incorrect);
+  const CorrectCountID = 'score-output';
+  if (document.querySelector('#score-ouput')) {
+    document.querySelector('#score-output').remove();
+  }
+  const correctCount = document.createElement('div');
+  correctCount.id = 'score-output';
+  correctCount.textContent = correctAnswers.toString();
+  correctCount.classList.add('score');
+  scoreContainer.appendChild(correctCount);
+
+  incorrectCount = document.createElement('div');
+  incorrectCount.textContent = incorrectAnswers.toString();
+  incorrectCount.classList.add('mistake');
+  mistakesContainer.appendChild(incorrectCount);
 }
 
-function showCorrectOrWrong(element, correct) {
+function showCorrectOrWrong(element, correct, incorrect) {
   if (correct) {
     element.classList.add('correct');
-  } else {
+  } else if (incorrect) {
     element.classList.add('wrong');
   }
 }
 
-nextBtn.addEventListener('click');
+// nextBtn.addEventListener('click');

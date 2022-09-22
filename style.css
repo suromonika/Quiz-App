@@ -91,3 +91,13 @@ main {
 .correct-btn {
   border: 5px solid #018100;
 }
+
+.score {
+  color: #0fc912;
+  font-size: 2rem;
+}
+
+.mistake {
+  color: #c90f2e;
+  font-size: 2rem;
+}
