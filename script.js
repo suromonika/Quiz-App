@@ -27,8 +27,8 @@ const questions = [
   {
     question: 'What does Prison Mike say is the worst thing about jail?',
     answers: [
-      { option: 'The food', correct: false },
-      { option: 'The showers', correct: false },
+      { option: 'The Food', correct: false },
+      { option: 'The Showers', correct: false },
       { option: 'The Dementors', correct: true },
       { option: 'Sleepless nights', correct: false },
     ],
@@ -138,6 +138,11 @@ function showQuestion(question) {
 
 function selectedAnswer(e) {
   const selectedAnswer = e.target;
+  const buttonsToDisable = document.querySelectorAll('#answer-btn');
+  //Disables all answer buttons after choosing one of the answers
+  for (var i = 0; i < buttonsToDisable.length; i++) {
+    buttonsToDisable[i].disabled = true;
+  }
   const correct = selectedAnswer.dataset.correct;
   if (correct) {
     correctAnswers++;
@@ -148,15 +153,17 @@ function selectedAnswer(e) {
   displayScore();
   displayMistakes();
 
-  //Shows next questions; if no more questions available, shows winner window and restart button
-  if (randomizeQuestions.length > currentQuestionsIndex + 1) {
-    nextBtn.classList.remove('hide');
-  } else {
-    const winnerImage = document.createElement('img');
-    winnerImage.src = '/img/winner.gif';
-    document.querySelector('#loser-winner').appendChild(winnerImage);
-    appInnerWrapper.classList.add('hide');
-    restartGame();
+  if (incorrectAnswers != 3) {
+    //Shows next questions; if no more questions available, shows winner window and restart button
+    if (randomizeQuestions.length > currentQuestionsIndex + 1) {
+      nextBtn.classList.remove('hide');
+    } else {
+      const winnerImage = document.createElement('img');
+      winnerImage.src = '/img/winner.gif';
+      document.querySelector('#loser-winner').appendChild(winnerImage);
+      appInnerWrapper.classList.add('hide');
+      restartGame();
+    }
   }
 }
 
