@@ -125,3 +125,7 @@ main {
   display: flex;
   flex-direction: column-reverse;
 }
+
+button:disabled {
+  border: 5px solid #97979c;
+}
